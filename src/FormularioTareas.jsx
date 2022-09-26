@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import ListaTarea from "./ListaTareas";
 
 const FormularioTarea = () => {
+  // traigo el arreglo y si esta vacio lo cargo vacio
+  const tareasLocalStorage = JSON.parse(localStorage.getItem("listaTareasKey")) || [];
   const [tarea, setTarea] = useState("");
-  const [arregloTarea, setArregloTareas] = useState([]);
+  const [arregloTarea, setArregloTareas] = useState(tareasLocalStorage);
+
+  // ciclo de vida del componente
+
+  useEffect(()=>{
+    console.log("prueba del ciclo de vida")
+    // guardo en local storage el arreglo
+    localStorage.setItem("listaTareasKey", JSON.stringify(arregloTarea))
+  },[arregloTarea])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
